@@ -75,7 +75,33 @@ Maybe the type-ID pairs should be stored in an extra table?
 
 ### support filtering, ordering and pagination for `vehicles` query
 
-Currently the adapted noder interface only allows to filter for IDs. For generic interfaces, we need to support filtering and ordering on the interfaces fields. Also pagination is important.
+Currently the adapted noder interface only allows to filter for IDs. For generic interfaces, we need to support filtering and ordering on the interfaces fields. Also pagination is important. Following query should be possible and supported by ent:
+
+```
+query {
+    vehicles(filter: {name: "Audi"}) {
+        id
+        name
+        ... on Car {
+            wheelPressure
+        }
+    }
+}
+
+query {
+    vehicles(first: 3, orderBy: {direction: DESC, field: NAME}) {
+        id
+        name
+        ... on Car {
+            wheelPressure
+        }
+        ... on Plane {
+            altitude
+        }
+    }
+}
+
+```
 
 ### allow vehicles on edges of other types
 
@@ -133,6 +159,27 @@ func (c Car) Interfaces() []ent.Interf {
 		VehicleInterface{},
 	}
 }
+```
+
+**Note**: it should be allowed to add edges from and to interfaces (also interface <-> interface edges) !
+
+```go
+func (VehicleInterface) Edges() []ent.Edge {
+	return []ent.Edge{
+		edge.To("tank", Tank.Type).Unique(),
+	}
+}
+
+type Tank struct {
+    ent.Schema
+}
+
+func (Tank) Edges() []ent.Edge {
+    return []ent.Edge{
+        edge.From("vehicle", VehicleInterface.Type).Ref("tank").Unique().Required()
+    }
+}
+
 ```
 
 ### allow additional mutatations for interfaces
