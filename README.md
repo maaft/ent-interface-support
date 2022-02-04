@@ -137,5 +137,5 @@ func (c Car) Interfaces() []ent.Interf {
 
 ### allow additional mutatations for interfaces
 
-- **updateVehicle**: We can filter vehicles by their properties and update their fields
-- **deleteVehicle**: We should be able to delete vehicles by filtering for their properties
+- **updateVehicle**: We should be able to filter vehicles by their properties and update their fields (ignoring fields from Car,Plane)
+- **deleteVehicle**: We should be able to delete vehicles by filtering for their properties. When a Vehicle is deleted, the Car/Plane should also be deleted. But as its the same row, this shold be trivial.
