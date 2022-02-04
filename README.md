@@ -134,3 +134,8 @@ func (c Car) Interfaces() []ent.Interf {
 	}
 }
 ```
+
+### allow additional mutatations for interfaces
+
+- **updateVehicle**: We can filter vehicles by their properties and update their fields
+- **deleteVehicle**: We should be able to delete vehicles by filtering for their properties
