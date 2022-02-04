@@ -1,0 +1,48 @@
+type Plane implements Node & Timestamped & Vehicle {
+  id: ID!
+  createdAt: Time!
+  updatedAt: Time!
+
+  name: String!
+  description: String!
+  altitude: Float!
+}
+
+input AddPlaneInput {
+  name: String!
+  description: String
+  altitude: Float!
+}
+
+type AddPlanePayload {
+  addPlane: [Plane!]!
+}
+
+input PlanePatch {
+  name: String
+  description: String
+}
+
+input UpdatePlaneInput {
+  filter: PlaneWhereInput
+  set: PlanePatch!
+}
+
+type UpdatePlanePayload {
+  updatePlane: [Plane!]!
+}
+
+type DeletePlanePayload {
+  count: Int!
+}
+
+extend type Mutation {
+  addPlane(input: [AddPlaneInput!]!): AddPlanePayload
+  updatePlane(input: UpdatePlaneInput!): UpdatePlanePayload
+  deletePlane(filter: PlaneWhereInput): DeletePlanePayload
+}
+
+extend type Query {
+  queryPlane(filter: PlaneWhereInput): [Plane!]!
+  getPlane(id: ID!): Plane!
+}

@@ -1,0 +1,45 @@
+# Copyright (c) 2004-present Facebook All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+schema:
+  - server/graph/schema/*.graphqls
+
+exec:
+  filename: server/graph/generated/generated.go
+  package: generated
+
+model:
+  filename: server/graph/model/models_gen.go
+  package: model
+
+resolver:
+  layout: follow-schema
+  dir: server/graph/resolver
+  package: resolver
+
+autobind:
+  - backend/ent
+
+models:
+  ID:
+    model:
+      - backend/ent/schema/pulid.ID
+  Cuid:
+    model:
+      - backend/ent.Noder
+  Role:
+    model:
+      - backend/ent/user.Role
+  MarkupSource:
+    model:
+      - backend/ent/cccheckermarkup.MarkupSource
+  NotificationType:
+    model:
+      - backend/ent/notification.NotificationType
+  Node:
+    model:
+      - backend/ent.Noder
+  Vehicle:
+    model:
+      - backend/ent.Vehicler

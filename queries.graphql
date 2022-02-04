@@ -1,0 +1,46 @@
+mutation AddPlane {
+  addPlane(
+    input: [{ name: "Boeing", description: "yeah !", altitude: 10000 }]
+  ) {
+    addPlane {
+      id
+      createdAt
+    }
+  }
+}
+
+mutation AddCar {
+  addCar(input: [{ name: "Audi", description: "lol !", wheelPressure: 3 }]) {
+    addCar {
+      id
+      createdAt
+    }
+  }
+}
+
+query GetVehicle {
+  vehicle(id: "Car01FV2745204SBGNWVHN8WG8DYQ") {
+    id
+    ... on Car {
+      wheelPressure
+    }
+    ... on Plane {
+      altitude
+    }
+  }
+}
+
+query QueryVehicle {
+  vehicles(
+    ids: ["Car01FV25M1P3KDKMR4P8R1F7HMJ7", "Plane01FV26B7RDNBGMZ9HS7Q7FQYYS"]
+  ) {
+    id
+    name
+    ... on Car {
+      wheelPressure
+    }
+    ... on Plane {
+      altitude
+    }
+  }
+}

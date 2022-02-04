@@ -1,0 +1,48 @@
+type Car implements Node & Timestamped & Vehicle {
+  id: ID!
+  createdAt: Time!
+  updatedAt: Time!
+
+  name: String!
+  description: String!
+  wheelPressure: Float!
+}
+
+input AddCarInput {
+  name: String!
+  description: String
+  wheelPressure: Float!
+}
+
+type AddCarPayload {
+  addCar: [Car!]!
+}
+
+input CarPatch {
+  name: String
+  description: String
+}
+
+input UpdateCarInput {
+  filter: CarWhereInput
+  set: CarPatch!
+}
+
+type UpdateCarPayload {
+  updateCar: [Car!]!
+}
+
+type DeleteCarPayload {
+  count: Int!
+}
+
+extend type Mutation {
+  addCar(input: [AddCarInput!]!): AddCarPayload
+  updateCar(input: UpdateCarInput!): UpdateCarPayload
+  deleteCar(filter: CarWhereInput): DeleteCarPayload
+}
+
+extend type Query {
+  queryCar(filter: CarWhereInput): [Car!]!
+  getCar(id: ID!): Car!
+}

@@ -1,0 +1,4 @@
+interface Timestamped {
+  createdAt: Time!
+  updatedAt: Time!
+}

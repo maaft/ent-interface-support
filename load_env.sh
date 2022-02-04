@@ -1,0 +1,1 @@
+source server/.env && export $(cut -d= -f1 server/.env)
