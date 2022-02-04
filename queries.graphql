@@ -18,8 +18,8 @@ mutation AddCar {
   }
 }
 
-query GetVehicle {
-  vehicle(id: "Car01FV2745204SBGNWVHN8WG8DYQ") {
+query GetVehicle($id: ID!) {
+  vehicle(id: $id) {
     id
     ... on Car {
       wheelPressure
@@ -30,10 +30,8 @@ query GetVehicle {
   }
 }
 
-query QueryVehicle {
-  vehicles(
-    ids: ["Car01FV25M1P3KDKMR4P8R1F7HMJ7", "Plane01FV26B7RDNBGMZ9HS7Q7FQYYS"]
-  ) {
+query QueryVehicle($ids: [ID!]!) {
+  vehicles(ids: $ids) {
     id
     name
     ... on Car {
