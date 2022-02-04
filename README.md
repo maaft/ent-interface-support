@@ -123,11 +123,11 @@ func (VehicleInterface) Fields() []ent.Field {
 	}
 }
 
-// ent.schema needs to have new mathod "Interfaces"
 type Car struct {
 	ent.Schema
 }
 
+// ent.Schema needs to have new mathod "Interfaces"
 func (c Car) Interfaces() []ent.Interf {
 	return []ent.Interf{
 		VehicleInterface{},
